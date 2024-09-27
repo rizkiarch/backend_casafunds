@@ -63,7 +63,7 @@ class HouseController extends Controller
     {
         $data = [
             'house_id' => $house->id,
-            'user_id' => $data['user_id'],
+            'user_id' => $house->user_id,
             'start_date' => $data['start_date'],
             'end_date' => $data['end_date'],
         ];
@@ -124,25 +124,32 @@ class HouseController extends Controller
     {
         $data = [
             'house_id' => $house->id,
-            'user_id' => $data['user_id'],
+            'user_id' => $house->user_id,
             'start_date' => $data['start_date'],
             'end_date' => $data['end_date'],
         ];
 
         $existingData = House_history::where('house_id', $data['house_id'])
-            ->whereNull('end_date')->first();
+            ->whereNull('end_date')
+            ->orderBy('id', 'desc')
+            ->first();
 
-        if ($existingData) {
-            return response()->json([
-                'status' => 400,
-                'message' => 'House is already occupied'
+        if ($existingData && $existingData->user_id == $data['user_id']) {
+            $existingData->update([
+                'start_date' => $data['start_date'],
+                'end_date' => $data['end_date'],
             ]);
+            $houseHistory = $existingData;
+        } else {
+            if ($existingData) {
+                $existingData->update(['end_date' => $data['start_date']]);
+            }
+            $houseHistory = House_history::create($data);
         }
 
-        $houseHistory = House_history::create($data);
         return response()->json([
             'status' => 201,
-            'message' => 'House history created successfully',
+            'message' => 'House history updated successfully',
             'houseHistory' => $houseHistory
         ]);
     }
