@@ -14,32 +14,39 @@ class AuthController extends Controller
 {
     public function register(RegisterRequest $request)
     {
-        $data = $request->validate([
-            'full_name' => ['required', 'string', 'max:255'],
-            // 'phone_number' => ['required', 'string', 'max:255', 'unique:users'],
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            // 'status' => ['required', 'string', 'max:255'],
-        ]);
+        try {
+            $data = $request->validate([
+                'full_name' => ['required', 'string', 'max:255'],
+                // 'phone_number' => ['required', 'string', 'max:255', 'unique:users'],
+                'username' => ['required', 'string', 'max:255', 'unique:users'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                // 'status' => ['required', 'string', 'max:255'],
+            ]);
 
-        $user = User::create([
-            'full_name' => $data['full_name'],
-            // 'phone_number' => $data['phone_number'],
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            // 'status' => $data['status'],
-        ]);
+            $user = User::create([
+                'full_name' => $data['full_name'],
+                // 'phone_number' => $data['phone_number'],
+                'username' => $data['username'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                // 'status' => $data['status'],
+            ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+            $token = $user->createToken('auth_token')->plainTextToken;
 
-        $cookies = cookie('token', $token, 60 * 24);
+            $cookies = cookie('token', $token, 60 * 24);
 
-        return response()->json([
-            'user' => new UserResource($user),
+            return response()->json([
+                'user' => new UserResource($user),
 
-        ])->withCookie($cookies);
+            ])->withCookie($cookies);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Username/Email or password is incorrect!',
+                'error' => $th->getMessage()
+            ], 401);
+        }
     }
 
     public function login(Request $request)

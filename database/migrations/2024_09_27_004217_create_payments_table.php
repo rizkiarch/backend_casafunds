@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(House::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnUpdate();
+            $table->foreignIdFor(House::class)->constrained()->cascadeOnUpdate();
             $table->date('payment_date');
             $table->decimal('iuran_kebersihan', 10, 2)->default(0);
             $table->decimal('iuran_satpam', 10, 2)->default(0);
             $table->boolean('is_paid')->default(false);
             $table->date('paid_at')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

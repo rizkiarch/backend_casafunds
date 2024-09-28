@@ -20,11 +20,11 @@ class Payment extends Model
 
     public function house()
     {
-        return $this->belongsTo(House::class, 'house_id', 'house_id');
+        return $this->belongsTo(House::class);
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'user_id');
+        return $this->belongsTo(User::class);
     }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->decimal('amount', 10, 2);
             $table->date('spending_date');
-            $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Category::class)->constrained()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

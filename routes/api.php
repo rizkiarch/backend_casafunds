@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ChartController;
 use App\Http\Controllers\Api\HouseController;
 use App\Http\Controllers\Api\HouseHistoryController;
+use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\Spendingcontroller;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,10 +22,21 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/user', [AuthController::class, 'user']);
-});
+    Route::middleware('auth', 'admin')->group(function () {
+        // Route::apiResource('/users', UserController::class);
+        Route::get('/users', [UserController::class, 'index']);
+        // Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+        Route::post('/users', [UserController::class, 'store']);
 
-Route::apiResource('/categories', CategoryController::class);
-Route::apiResource('/houses', HouseController::class);
-Route::apiResource('/house-histories', HouseHistoryController::class);
+        Route::apiResource('/categories', CategoryController::class);
+        Route::apiResource('/houses', HouseController::class);
+        Route::apiResource('/house-histories', HouseHistoryController::class);
+        Route::apiResource('/payments', PaymentController::class);
+        Route::apiResource('/spendings', Spendingcontroller::class);
+    });
+    Route::get('/user', [AuthController::class, 'user']);
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+
+    Route::get('/bar-chart', [ChartController::class, 'barChart']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
