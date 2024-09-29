@@ -44,8 +44,8 @@ class UserController extends Controller
                 $file = $request->file('photo_ktp');
                 $filename = $username . '-' .  date('YmdHi') . '.' . $file->getClientOriginalExtension();
                 // $path = $file->storeAs('photo_ktp', $filename);
-                $path = $file->move(public_path('photo_ktp'), $filename);
-                $data['photo_ktp'] = 'photo_ktp/' . $filename;
+                $path = $file->move(public_path('storage'), $filename);
+                $data['photo_ktp'] = 'storage/' . $filename;
             }
 
             $user = User::create($data);
