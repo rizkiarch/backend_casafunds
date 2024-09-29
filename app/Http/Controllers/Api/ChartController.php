@@ -34,24 +34,30 @@ class ChartController extends Controller
         $totalPaymentsSum = $payments->sum();
         $totalSpendingsSum = $spendings->sum();
 
+        $nameMonth->push('Total');
+
         $data = [
             'labels' => $nameMonth,
             'datasets' => [
                 [
                     'label' => 'Total Payments',
                     'backgroundColor' => '#3490dc',
-                    'data' => $labels->map(fn($month) => $payments->get($month, 0))->toArray()
+                    'data' => $labels->map(fn($month) => $payments->get($month, 0))->concat([$totalPaymentsSum])->toArray()
                 ],
                 [
                     'label' => 'Total Spendings',
                     'backgroundColor' => '#e3342f',
-                    'data' => $labels->map(fn($month) => $spendings->get($month, 0))->toArray()
+                    'data' => $labels->map(fn($month) => $spendings->get($month, 0))->concat([$totalSpendingsSum])->toArray()
                 ]
             ],
             'totalPayments' => $totalPaymentsSum,
             'totalSpendings' => $totalSpendingsSum,
         ];
 
-        return response()->json($data);
+        return response()->json([
+            'message' => 200,
+            'result' => 'ok',
+            'data' => $data
+        ]);
     }
 }
