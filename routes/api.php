@@ -26,16 +26,15 @@ Route::middleware('auth:sanctum')->group(function () {
         // Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
         // Route::get('/users', [UserController::class, 'index']);
         Route::post('/users', [UserController::class, 'store']);
-
-        Route::apiResource('/house-histories', HouseHistoryController::class);
-        Route::apiResource('/payments', PaymentController::class);
-        Route::apiResource('/spendings', Spendingcontroller::class);
     });
     Route::get('/user', [AuthController::class, 'user']);
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });
+Route::apiResource('/house-histories', HouseHistoryController::class);
+Route::apiResource('/spendings', Spendingcontroller::class);
+Route::apiResource('/payments', PaymentController::class);
 Route::apiResource('/users', UserController::class);
 Route::apiResource('/houses', HouseController::class);
 Route::get('/bar-chart', [ChartController::class, 'barChart']);
