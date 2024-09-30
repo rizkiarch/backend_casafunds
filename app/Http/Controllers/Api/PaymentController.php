@@ -11,7 +11,7 @@ class PaymentController extends Controller
 {
     public function index()
     {
-        $payments = Payment::with('house', 'user')->get();
+        $payments = Payment::with('house', 'house.user', 'user', 'user.houses')->get();
         return response()->json([
             'status' => 200,
             'message' => 'Payments fetched successfully',
@@ -44,7 +44,7 @@ class PaymentController extends Controller
             if (!$house || $house->user_id != $data['user_id']) {
                 return response()->json([
                     'status' => 400,
-                    'message' => "House or User not valid"
+                    'message' => "Penghuni Tidak Sesuai dengan Rumah, cobalah gunakan rumah yang kosong"
                 ], 400);
             }
 
