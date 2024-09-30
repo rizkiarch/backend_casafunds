@@ -88,12 +88,16 @@ class UserSeeder extends Seeder
                     'address' => 'House Address ' . $j,
                     'status' => $status,
                     'user_id' => $users->random()->id,
+                    'start_date' => now()->subDays(rand(1, 30)),
+                    'end_date' => null,
                 ]);
             } else {
                 $house = House::create([
                     'address' => 'House Address ' . $j,
                     'status' => $status,
                     'user_id' => null,
+                    'start_date' => now()->subDays(rand(1, 30)),
+                    'end_date' => null,
                 ]);
             }
 
@@ -110,18 +114,20 @@ class UserSeeder extends Seeder
 
     public function paymentSeeder()
     {
-        $users = User::all();
-        $houses = House::all();
+        $houses = House::whereNotNull('user_id')->get(); // Hanya rumah yang sudah ada penghuninya
 
-        for ($i = 0; $i < 10; $i++) {
-            $house = $houses->random();
-            $user = $users->random();
+        foreach ($houses as $house) {
+            $user = $house->user; // Ambil user yang menghuni rumah tersebut
 
+            // Random nilai untuk iuran
             $iuran_kebersihan = rand(13000, 25000);
             $iuran_satpam = rand(90000, 200000);
-            $is_paid = $iuran_kebersihan < 15000 || $iuran_satpam < 100000 ? false : true;
+
+            // Tentukan apakah pembayaran sudah dibayar atau belum
+            $is_paid = $iuran_kebersihan >= 15000 && $iuran_satpam >= 100000;
             $paid_at = $is_paid ? now()->subDays(rand(1, 30)) : null;
 
+            // Buat data pembayaran
             Payment::create([
                 'house_id' => $house->id,
                 'user_id' => $user->id,

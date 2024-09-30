@@ -24,6 +24,8 @@ class HouseSeeder extends Seeder
                     'address' => 'House Address ' . $j,
                     'status' => $status,
                     'user_id' => $users->random()->id,
+                    'start_date' => now()->subDays(rand(1, 30)),
+                    'end_date' => null,
                 ]);
             } else {
                 $house = House::create([
@@ -37,8 +39,8 @@ class HouseSeeder extends Seeder
                 House_history::create([
                     'house_id' => $house->id,
                     'user_id' => $house->user_id,
-                    'start_date' => now()->subDays(rand(1, 30)),
-                    'end_date' => null,
+                    'start_date' => $house->start_date,
+                    'end_date' => $house->end_date,
                 ]);
             }
         }
