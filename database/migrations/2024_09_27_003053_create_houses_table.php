@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('address');
             $table->string('status')->default('Dihuni');
             $table->foreignIdFor(User::class)->nullable()->cascadeOnDelete();
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }

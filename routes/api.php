@@ -23,13 +23,10 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('auth', 'admin')->group(function () {
-        // Route::apiResource('/users', UserController::class);
-        Route::get('/users', [UserController::class, 'index']);
         // Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+        // Route::get('/users', [UserController::class, 'index']);
         Route::post('/users', [UserController::class, 'store']);
 
-        Route::apiResource('/categories', CategoryController::class);
-        Route::apiResource('/houses', HouseController::class);
         Route::apiResource('/house-histories', HouseHistoryController::class);
         Route::apiResource('/payments', PaymentController::class);
         Route::apiResource('/spendings', Spendingcontroller::class);
@@ -37,6 +34,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 
-    Route::get('/bar-chart', [ChartController::class, 'barChart']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
+Route::apiResource('/users', UserController::class);
+Route::apiResource('/houses', HouseController::class);
+Route::get('/bar-chart', [ChartController::class, 'barChart']);
+Route::apiResource('/categories', CategoryController::class);
