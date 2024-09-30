@@ -28,10 +28,10 @@ MySQL: Sebagai basis data default, meskipun Anda dapat menggunakan basis data la
 ## Langkah Instalasi
 1. Clone Repository
 ```bash
-git clone https://github.com/your-username/casafunds.git
+git clone https://github.com/rizkiarch/backend_casafunds.git
 ```
 ```bash
-cd casafunds
+cd backend_casafunds
 ```
 
 2. Instal Dependensi Backend Instal dependensi PHP yang dibutuhkan oleh Laravel menggunakan Composer:
@@ -72,9 +72,14 @@ php artisan migrate:fresh --seed
 ```
 
 
-9. Jalankan Server Lokal Jalankan server development lokal untuk backend:
+8. Jalankan Server Lokal Jalankan server development lokal untuk backend:
 ```bash
 php artisan serve
+```
+
+```bash
+Username : admin
+Password : 123123123
 ```
 
 Aplikasi sekarang dapat diakses di http://localhost:8000 untuk backend dan frontend tergantung dari Vite.
