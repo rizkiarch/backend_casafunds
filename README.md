@@ -1,6 +1,13 @@
-<p align="center"> <a href="https://casafunds.com" target="_blank"> <img src="https://raw.githubusercontent.com/your-repo/logo/master/casafunds-logo.svg" width="400" alt="CasaFunds Logo"> </a> </p> <p align="center"> <a href="https://github.com/casafunds/casafunds/actions"> <img src="https://github.com/casafunds/casafunds/workflows/tests/badge.svg" alt="Build Status"> </a> <a href="https://packagist.org/packages/casafunds/casafunds"> <img src="https://img.shields.io/packagist/dt/casafunds/casafunds" alt="Total Downloads"> </a> <a href="https://packagist.org/packages/casafunds/casafunds"> <img src="https://img.shields.io/packagist/v/casafunds/casafunds" alt="Latest Stable Version"> </a> <a href="https://packagist.org/packages/casafunds/casafunds"> <img src="https://img.shields.io/packagist/l/casafunds/casafunds" alt="License"> </a> </p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-### About CasaFunds
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
+
+## About Aplication
 CasaFunds berasal dari dua kata:
 
 Casa yang berarti "rumah" dalam bahasa Spanyol atau Italia.
@@ -20,41 +27,57 @@ MySQL: Sebagai basis data default, meskipun Anda dapat menggunakan basis data la
 
 ## Langkah Instalasi
 1. Clone Repository
+```bash
 git clone https://github.com/your-username/casafunds.git
+```
+```bash
 cd casafunds
+```
 
 2. Instal Dependensi Backend Instal dependensi PHP yang dibutuhkan oleh Laravel menggunakan Composer:
+```bash
 composer install
+```
 
 3. Instal Dependensi Frontend Instal semua dependensi frontend menggunakan npm:
+```bash
 npm install
+```
 
 4. Copy File Environment Buat salinan file .env.example dan ubah menjadi .env:
+```bash
 cp .env.example .env
+```
 
 5. Konfigurasi Database Buka file .env dan ubah konfigurasi database sesuai dengan setelan lokal Anda:
+```bash
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=nama_database
 DB_USERNAME=user_database
 DB_PASSWORD=password_database
+```
 
 6. Generate Application Key Jalankan perintah berikut untuk menghasilkan aplikasi key Laravel:
+```bash
 php artisan key:generate
+```
 
 7. Migrasi Database dan Seeder Jalankan migrasi untuk membuat tabel-tabel yang dibutuhkan di database:
+```bash
 php artisan migrate --seed
 or
 php artisan migrate:fresh --seed
+```
+
 
 9. Jalankan Server Lokal Jalankan server development lokal untuk backend:
+```bash
 php artisan serve
+```
 
 Aplikasi sekarang dapat diakses di http://localhost:8000 untuk backend dan frontend tergantung dari Vite.
-
-Contributing
-Kami sangat menghargai kontribusi untuk mengembangkan aplikasi CasaFunds. Silakan merujuk pada Panduan Kontribusi untuk informasi lebih lanjut.
 
 License
 Aplikasi CasaFunds bersifat open-source dan dilisensikan di bawah MIT license.
