@@ -39,11 +39,6 @@ cd backend_casafunds
 composer install
 ```
 
-3. Instal Dependensi Frontend Instal semua dependensi frontend menggunakan npm:
-```bash
-npm install
-```
-
 4. Copy File Environment Buat salinan file .env.example dan ubah menjadi .env:
 ```bash
 cp .env.example .env
@@ -82,7 +77,7 @@ Username : admin
 Password : 123123123
 ```
 
-Aplikasi sekarang dapat diakses di http://localhost:8000 untuk backend dan frontend tergantung dari Vite.
+Aplikasi sekarang dapat diakses di http://localhost:8000 untuk backend dan frontend disini https://github.com/rizkiarch/frontend_casafunds tergantung dari Vite.
 
 License
 Aplikasi CasaFunds bersifat open-source dan dilisensikan di bawah MIT license.
