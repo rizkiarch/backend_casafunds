@@ -16,7 +16,8 @@ Jika digabungkan, CasaFunds secara harfiah berarti "dana rumah" atau "keuangan r
 
 ## Entity Relationship Diagram
 <img src="[/docs/logo.png]()" alt="ERD"/>
-https://github.com/rizkiarch/backend_casafunds/blob/main/Cuplikan%20layar%202024-09-30%20140456.png
+![Alt text]([https://example.com/path/to/image.png](https://github.com/rizkiarch/backend_casafunds/blob/main/Cuplikan%20layar%202024-09-30%20140456.png
+))
 
 ## Installation
 Berikut adalah langkah-langkah untuk menginstal dan mengatur aplikasi CasaFunds dari awal hingga akhir.
