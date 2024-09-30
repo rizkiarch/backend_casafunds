@@ -11,12 +11,14 @@ class HouseController extends Controller
 {
     public function index()
     {
-        $houses = [];
-        House::with('user')->chunk(100, function ($chunk) use (&$houses) {
-            foreach ($chunk as $house) {
-                $houses[] = $house;
-            }
-        });
+        // $houses = [];
+        // House::with('user')->chunk(100, function ($chunk) use (&$houses) {
+        //     foreach ($chunk as $house) {
+        //         $houses[] = $house;
+        //     }
+        // });
+
+        $houses = House::with('user')->get();
 
         return response()->json([
             'status' => 200,
@@ -42,12 +44,16 @@ class HouseController extends Controller
                 'address' => $data['address'],
                 'status' => $data['status'],
                 'user_id' => $data['user_id'],
+                'start_date' => $data['start_date'],
+                'end_date' => $data['end_date'],
             ]);
         } else {
             $house = House::create([
                 'address' => $data['address'],
                 'status' => $data['status'],
                 'user_id' => $data['user_id'],
+                'start_date' => $data['start_date'],
+                'end_date' => $data['end_date'],
             ]);
             $this->storeHistories($data, $house);
         }
@@ -93,23 +99,23 @@ class HouseController extends Controller
             'status' => ['required', 'string', 'max:255'],
             'user_id' => ['nullable', 'integer'],
 
-            'start_date' => ['required', 'date'],
+            'start_date' => ['nullable', 'date'],
             'end_date' => ['nullable', 'date'],
         ]);
 
-        if (empty($data['user_id'])) {
-            $data['user_id'] = null;
-            $house->update([
-                'address' => $data['address'],
-                'status' => $data['status'],
-                'user_id' => $data['user_id'],
-            ]);
-        } else {
-            $house->update([
-                'address' => $data['address'],
-                'status' => $data['status'],
-                'user_id' => $data['user_id'],
-            ]);
+        $existingData = House_history::where('house_id', $house->id)
+            ->whereNull('end_date')
+            ->orderBy('id', 'desc')
+            ->first();
+
+        if ($existingData) {
+            $data['start_date'] = $data['start_date'] ?: $existingData->start_date;
+            $data['end_date'] = $data['end_date'] ?: $existingData->end_date;
+        }
+
+        $this->updateHouseData($house, $data);
+
+        if (!empty($data['user_id'])) {
             $this->updateHistories($data, $house);
         }
 
@@ -120,7 +126,19 @@ class HouseController extends Controller
         ]);
     }
 
-    public function updateHistories($data, $house)
+    private function updateHouseData(House $house, array $data)
+    {
+        // Perbarui data rumah
+        $house->update([
+            'address' => $data['address'],
+            'status' => $data['status'],
+            'user_id' => $data['user_id'] ?? null, // Menjaga nilai null jika tidak ada user_id
+            // $data['start_date'] = $data['start_date'],
+            // $data['end_date'] = $data['end_date'],
+        ]);
+    }
+
+    private function updateHistories($data, $house)
     {
         $data = [
             'house_id' => $house->id,
