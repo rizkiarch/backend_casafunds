@@ -60,16 +60,16 @@ class User extends Authenticatable
 
     public function house_histories()
     {
-        return $this->hasMany(HouseHistory::class, 'user_id', 'user_id');
+        return $this->hasMany(HouseHistory::class,);
     }
 
     public function payments()
     {
-        return $this->hasMany(Payment::class, 'user_id', 'user_id');
+        return $this->hasMany(Payment::class,);
     }
 
     public function houses()
     {
-        return $this->hasMany(House::class, 'user_id', 'user_id');
+        return $this->hasMany(House::class,);
     }
 }
