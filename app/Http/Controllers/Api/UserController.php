@@ -31,6 +31,7 @@ class UserController extends Controller
                 'username' => ['nullable', 'string', 'unique:users'],
                 'email' => ['nullable', 'email', 'unique:users'],
                 'password' => ['nullable', 'string', 'min:8'],
+                'password_confirmation' => ['nullable', 'string', 'same:password'],
 
                 'role' => ['nullable', 'string'],
                 'status' => ['nullable', 'string'],
@@ -38,6 +39,11 @@ class UserController extends Controller
             ]);
 
             $data['password'] = bcrypt($data['password']);
+            $data['password_confirmation'] = $data['password'];
+
+            if ($data['role'] == null) {
+                $data['role'] = 'user';
+            }
 
             $username = $data['username'];
             if ($request->hasFile('photo_ktp')) {
