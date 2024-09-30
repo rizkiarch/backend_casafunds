@@ -15,7 +15,7 @@ Funds yang berarti "dana" atau "keuangan" dalam bahasa Inggris.
 Jika digabungkan, CasaFunds secara harfiah berarti "dana rumah" atau "keuangan rumah," yang menggambarkan aplikasi untuk mengelola dana, pembayaran, dan pengeluaran yang berhubungan dengan perumahan.
 
 ## Entity Relationship Diagram
-![image](https://github.com/user-attachments/assets/ac40e528-a284-44e2-a4a3-0221842f58fb)
+![image](https://github.com/user-attachments/assets/c643f6d3-3c3b-43a3-9a96-78a97698d6b4)
 
 ## Installation
 Berikut adalah langkah-langkah untuk menginstal dan mengatur aplikasi CasaFunds dari awal hingga akhir.
